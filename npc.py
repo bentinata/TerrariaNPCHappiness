@@ -81,6 +81,11 @@ class NPC:
         ("Steampunker", "Cyborg", "Goblin Tinkerer"),
     )
 
+    npc_ignore = (
+        "Guide",
+        "Angler",
+    )
+
     def __init__(self, lines: List[str]):
         self.name = self.__parse_names(lines[0])[0]
 
@@ -137,6 +142,9 @@ class NPC:
 
         Rules were taken from https://terraria.gamepedia.com/NPCs#Happiness."""
         happiness = 1
+
+        if (self.name in self.npc_ignore):
+            return 1
 
         # More than two other NPCs within 25 tiles (for each additional NPC): 104%
         if len(npcs) >= 4:
